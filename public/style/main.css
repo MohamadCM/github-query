@@ -1,0 +1,75 @@
+/*  - Setting the wallpaper to Body
+    - Setting the font setting
+    - Setting layout of the body (flex) */
+body {
+    background: url("../img/github-wallpaper.png") no-repeat center; /* Setting image with no repeat and fixed center */
+    font-family: 'New Tegomin', serif; /* Setting font family of document */
+    font-size: 18px; /* Setting overall font size */
+    display: flex; /* Using flex to contain body elements */
+    align-items: center; /* Center Items vertically */
+    justify-content: center; /* Center Items horizontally */
+    height: 98vh; /* Setting overall height so flex-box can center items vertically */
+}
+.container{
+    color: white; /* Font color is white */
+    background: black; /* Background color is black */
+    opacity: 75%; /* Setting opacity to making div look a blit transparent */
+    border-radius: 20px; /* Setting border-radius to create curves on edges */
+    padding: 15px; /* Adding padding to create distance between edges and content */
+    box-shadow: 0 0 3pt 0.5pt black; /* Box shadow */
+}
+/* Git info container block */
+#git__container {
+    display: none; /* Hide on default, grid in case of data */
+    grid-template-columns: auto auto; /* Setting Grid columns to 2 */
+    margin-right: 35px; /* Margin with right content */
+}
+/* User' avatar styling */
+#avatar {
+    max-height: 260px; /* Max height of avatar */
+    max-width: 260px; /* Max width of avatar */
+}
+/* Text input style */
+input[type=text] {
+    width: 100%; /* Take a whole row */
+    padding: 12px 20px; /* Use padding to size text-field */
+    margin: 8px 0; /* 8px Margin on top and bottom */
+    border: none; /* Remove default border */
+    border-radius: 8px; /* Curve edges */
+    box-sizing: border-box; /* Make padding and border included in the width and height*/
+}
+/* Submit button styles */
+input[type=submit] {
+    width: 100%; /* Take a whole row */
+    background-color: limegreen; /* Button's background color */
+    color: white; /* Button's text color*/
+    padding: 14px 20px; /* Use padding to size button */
+    margin: 8px 0; /* 8px Margin on top and bottom */
+    border: none; /* Remove default border */
+    border-radius: 8px; /* Curve edges */
+    cursor: pointer; /* Change mouse cursor look */
+}
+/* Change button style on hover */
+input[type=submit]:hover {
+    background-color: green; /* Change background color */
+    box-shadow: 0 0 3pt 0.5pt limegreen; /* Box shadow on hover */
+}
+/* User not found error section */
+#error__box {
+    color: #ED4337; /* Color of error */
+    margin: 8px 0; /* 8px Margin on top and bottom */
+    display: none; /* Don't show this field by default */
+}
+/* Smaller screens */
+@media (max-width: 720px) {
+    body {
+        flex-direction: column; /* Show in column mode */
+    }
+    #git__container {
+        margin-right: 0; /* Remove right margin of container */
+    }
+    .container {
+        margin-top: 10px;
+        width: 100%; /* Get the whole page's width */
+    }
+}

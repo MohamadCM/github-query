@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--Importing fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap" rel="stylesheet">
+    <!-- -->
+    <link rel="shortcut icon" href="./public/img/favicon.ico" type="image/x-icon"> <!--Favicon-->
+    <link rel="stylesheet" href="public/style/main.css">
+    <script src="./public/js/main.js"></script>
+    <title>Github Query By Mohamad ChamanMotlagh</title>
+</head>
+<body>
+<div class="container" id="git__container">
+    <img id="avatar" src="" alt="avatar"/>
+    <div id="user__info">
+        <p id="user__name">
+        </p>
+        <p id="user__blog">
+        </p>
+        <p id="user__address">
+        </p>
+        <p id="user__language">
+        </p>
+    </div>
+    <p id="user__bio">
+    </p>
+</div>
+<div class="container" id="submit__container">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" placeholder="github username...">
+    <input type="submit" id="submit__button" value="Submit" onclick="return sendQuery()">
+    <p id="error__box">
+        Error: Username not found!
+    </p>
+</div>
+</body>
+</html>
