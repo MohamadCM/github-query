@@ -3,12 +3,12 @@ function sendQuery() {
     const username = document.getElementById("username").value;
     if (username && username.length > 0) {
         document.getElementById("submit__button").style.background = "silver"; /* Make button look disabled */
-        if(localStorage.getItem(username)){
+        if (localStorage.getItem(username)) {
             validateAndSet(JSON.parse(localStorage.getItem(username)));
         } else {
             fetch(`https://api.github.com/users/${username}`).then((response) => {
                 if (response.ok) { // OK situation
-                    response.json().then((data) => {
+                    response.json().then(async (data) => {
                         const userInfo = {
                             username: data.login,
                             avatar_url: data.avatar_url,
@@ -18,10 +18,8 @@ function sendQuery() {
                             bio: data.bio,
                             language: undefined
                         }
-                        findFavoriteLanguage(userInfo.username).then(lang => {
-                            userInfo.language = lang;
-                            localStorage.setItem(userInfo.username, JSON.stringify(userInfo))  // Add info to localstorage
-                        })
+                        userInfo.language = await findFavoriteLanguage(userInfo.username);
+                        localStorage.setItem(userInfo.username, JSON.stringify(userInfo)); // Add info to localstorage
                         validateAndSet(userInfo);
                     })
                 } else {
@@ -37,17 +35,18 @@ function sendQuery() {
         }
     }
 }
+
 // Handle showing errors
 function handleError(status) {
-    if(status === 404) {
+    if (status === 404) {
         document.getElementById("error__box").innerText = "Error: User not found!";
         document.getElementById("error__box").style.display = "block";
         document.getElementById("submit__button").style.background = "limegreen";
     } else {
-		document.getElementById("error__box").innerText = "Error: Unable to connect to github servers!";
+        document.getElementById("error__box").innerText = "Error: Unable to connect to github servers!";
         document.getElementById("error__box").style.display = "block";
         document.getElementById("submit__button").style.background = "limegreen";
-	}
+    }
 }
 
 /* Validate received JSON and Change HTML elements*/
@@ -55,16 +54,14 @@ function validateAndSet(data) {
     document.getElementById("error__box").style.display = "none"; // Hide error block
     document.getElementById("git__container").style.display = "grid"; // Start showing git box
     document.getElementById("avatar").setAttribute("src", data.avatar_url || "");
-    if(data.avatar_url) document.getElementById("avatar").style.marginRight = "15px"; // Create margin for picture
+    if (data.avatar_url) document.getElementById("avatar").style.marginRight = "15px"; // Create margin for picture
     document.getElementById("user__name").innerText = data.name ? `Name: ${data.name}` : ""; // Show name
     document.getElementById("user__address").innerText = data.location ? `Location: ${data.location}` : ""; // Show location
     document.getElementById("user__blog").innerText = data.blog ? `Blog: ${data.blog}` : ""; // Show blog
     document.getElementById("user__bio").innerText = data.bio ? data.bio : ""; // Show bio
-    // Find favorite language and set it
-    findFavoriteLanguage(data.username).then(lang =>
-        document.getElementById("user__language").innerText = lang ? `Favourite language: ${lang}` : "" // Show favourite language
-    );
-    document.getElementById("submit__button").style.background = "limegreen"; /* Make button look enables */
+    document.getElementById("user__language").innerText = data.language ? `Favourite language: ${data.language}` : "" // Show favourite language
+
+    document.getElementById("submit__button").style.background = "limegreen"; /* Make button look enabled again */
 }
 
 // Finding favourite programming language
@@ -90,7 +87,7 @@ async function findFavoriteLanguage(username) {
         }
 
         let maxVal = 0, maxLang = undefined;
-        for ([key, val] of Object.entries(cumulativeScores)) {
+        for ([key, val] of Object.entries(cumulativeScores)) { // Adding scored
             if (val > maxVal) {
                 maxVal = val;
                 maxLang = key;
