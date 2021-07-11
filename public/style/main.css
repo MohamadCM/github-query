@@ -60,6 +60,14 @@ input[type=submit]:hover {
     margin: 8px 0; /* 8px Margin on top and bottom */
     display: none; /* Don't show this field by default */
 }
+/* Footer style*/
+footer{
+	/* Stick to bottom left of the page */
+	position: absolute;
+	bottom: 0;
+	left: 0; 
+	color: white; /* White text color */
+}
 /* Smaller screens */
 @media (max-width: 720px) {
     body {
@@ -72,4 +80,10 @@ input[type=submit]:hover {
         margin-top: 10px;
         width: 100%; /* Get the whole page's width */
     }
+	footer{
+	/* Stick to bottom left of the page */
+	position: -webkit-sticky;
+	position: sticky;
+	bottom: 0;
+}
 }
